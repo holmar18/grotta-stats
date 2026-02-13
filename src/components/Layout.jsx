@@ -30,14 +30,14 @@ export default function Layout() {
 
       <nav className="bottomnav">
         {NAV_ITEMS.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === '/'}
-            className={({ isActive }) =>
-              `bottomnav-item ${isActive ? 'active' : ''}`
-            }
-          >
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end
+              className={({ isActive }) =>
+                `bottomnav-item ${isActive ? 'active' : ''}`
+              }
+            >
             <span className="bottomnav-icon">{item.icon}</span>
             <span className="bottomnav-label">{item.label}</span>
           </NavLink>
