@@ -21,18 +21,18 @@ export default defineConfig({
         scope: '/grotta-stats/',
         icons: [
           {
-            src: '/grotta-stats/grotta-logo.webp',
+            src: '/assets/grotta-logo.webp',
             sizes: '512x512',
             type: 'image/webp',
           },
           {
-            src: '/grotta-stats/grotta-logo.webp',
+            src: '/assets/grotta-logo.webp',
             sizes: '512x512',
             type: 'image/webp',
             purpose: 'maskable',
           },
           {
-            src: '/grotta-stats/grotta-logo.webp',
+            src: '/assets/grotta-logo.webp',
             sizes: '192x192',
             type: 'image/webp',
           },
