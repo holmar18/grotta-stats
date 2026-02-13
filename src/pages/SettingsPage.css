@@ -68,6 +68,31 @@
   transform: translateY(1px);
 }
 
+/* Install button */
+.btn-install {
+  width: 100%;
+  background: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 24px;
+  transition: all 0.2s ease;
+  
+  /* Neumorphic Button */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.btn-install:active {
+  box-shadow: var(--neu-pressed);
+  color: var(--accent);
+  transform: translateY(1px);
+}
+
 /* Modal */
 .modal-overlay {
   position: fixed;

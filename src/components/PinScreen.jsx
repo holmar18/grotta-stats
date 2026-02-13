@@ -1,12 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '../lib/supabase';
 import './PinScreen.css';
 
 const PIN_LENGTH = 4;
 
-/**
- * Simple hash so the PIN isn't stored in plaintext.
- * Not cryptographically serious — this is a convenience lock, not Fort Knox.
- */
 async function hashPin(pin) {
   const encoded = new TextEncoder().encode(pin + 'grotta-salt');
   const buffer = await crypto.subtle.digest('SHA-256', encoded);
@@ -16,12 +13,32 @@ async function hashPin(pin) {
 }
 
 export default function PinScreen({ onUnlock }) {
-  const hasPin = !!localStorage.getItem('grotta_pin_hash');
-  const [mode, setMode] = useState(hasPin ? 'login' : 'setup');
+  const [loading, setLoading] = useState(true);
+  const [hasPin, setHasPin] = useState(false);
+  const [mode, setMode] = useState('login'); // 'login' | 'setup'
   const [digits, setDigits] = useState('');
   const [confirmDigits, setConfirmDigits] = useState(null);
   const [error, setError] = useState('');
   const [shaking, setShaking] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from('app_settings')
+        .select('value')
+        .eq('key', 'pin_hash')
+        .single();
+
+      if (data) {
+        setHasPin(true);
+        setMode('login');
+      } else {
+        setHasPin(false);
+        setMode('setup');
+      }
+      setLoading(false);
+    })();
+  }, []);
 
   const triggerError = useCallback((msg) => {
     setError(msg);
@@ -42,8 +59,13 @@ export default function PinScreen({ onUnlock }) {
       // — LOGIN —
       if (mode === 'login') {
         const hash = await hashPin(next);
-        const stored = localStorage.getItem('grotta_pin_hash');
-        if (hash === stored) {
+        const { data } = await supabase
+          .from('app_settings')
+          .select('value')
+          .eq('key', 'pin_hash')
+          .single();
+
+        if (data && data.value === hash) {
           onUnlock();
         } else {
           triggerError('Rangt PIN');
@@ -61,7 +83,9 @@ export default function PinScreen({ onUnlock }) {
       // — SETUP: confirm —
       if (next === confirmDigits) {
         const hash = await hashPin(next);
-        localStorage.setItem('grotta_pin_hash', hash);
+        await supabase
+          .from('app_settings')
+          .upsert({ key: 'pin_hash', value: hash });
         onUnlock();
       } else {
         triggerError('PIN passa ekki');
@@ -77,16 +101,22 @@ export default function PinScreen({ onUnlock }) {
 
   const handleKey = useCallback(
     (key) => {
-      if (key === 'back') {
-        handleBackspace();
-      } else if (key !== '') {
-        handleDigit(key);
-      }
+      if (key === 'back') handleBackspace();
+      else if (key !== '') handleDigit(key);
     },
     [handleDigit, handleBackspace]
   );
 
-  // Determine subtitle text
+  if (loading) {
+    return (
+      <div className="pin-screen">
+        <div className="pin-logo">🤾</div>
+        <h1 className="pin-title">Grótta Stats</h1>
+        <p className="pin-subtitle">Hleð...</p>
+      </div>
+    );
+  }
+
   let subtitle = 'Sláðu inn PIN';
   if (mode === 'setup') {
     subtitle = confirmDigits === null ? 'Veldu 4 stafa PIN' : 'Staðfestu PIN';
@@ -102,9 +132,7 @@ export default function PinScreen({ onUnlock }) {
         {Array.from({ length: PIN_LENGTH }).map((_, i) => (
           <div
             key={i}
-            className={`pin-dot ${i < digits.length ? 'filled' : ''} ${
-              shaking ? 'error' : ''
-            }`}
+            className={`pin-dot ${i < digits.length ? 'filled' : ''} ${shaking ? 'error' : ''}`}
           />
         ))}
       </div>
@@ -112,37 +140,18 @@ export default function PinScreen({ onUnlock }) {
       <div className="pin-error">{error}</div>
 
       <div className="pin-pad">
-        {['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back'].map(
-          (key) => (
-            <button
-              key={key}
-              className={`pin-key ${key === '' ? 'empty' : ''} ${
-                key === 'back' ? 'backspace' : ''
-              }`}
-              onClick={() => handleKey(key)}
-              disabled={key === ''}
-              type="button"
-            >
-              {key === 'back' ? '⌫' : key}
-            </button>
-          )
-        )}
+        {['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back'].map((key) => (
+          <button
+            key={key}
+            className={`pin-key ${key === '' ? 'empty' : ''} ${key === 'back' ? 'backspace' : ''}`}
+            onClick={() => handleKey(key)}
+            disabled={key === ''}
+            type="button"
+          >
+            {key === 'back' ? '⌫' : key}
+          </button>
+        ))}
       </div>
-
-      {/* {mode === 'login' && (
-        <button
-          className="pin-setup-toggle"
-          onClick={() => {
-            setMode('setup');
-            setDigits('');
-            setConfirmDigits(null);
-            setError('');
-          }}
-          type="button"
-        >
-          Endurstilla PIN
-        </button>
-      )} */}
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 import './PageStyles.css';
 import './SettingsPage.css';
 
@@ -55,18 +56,76 @@ export default function SettingsPage() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [showFeatures, setShowFeatures] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [isIos, setIsIos] = useState(false);
+  const [showIosGuide, setShowIosGuide] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstalled(true);
+    }
+
+    const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    setIsIos(ios);
+
+    const handler = (e) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      const result = await installPrompt.userChoice;
+      if (result.outcome === 'accepted') {
+        setIsInstalled(true);
+      }
+      setInstallPrompt(null);
+    } else if (isIos) {
+      setShowIosGuide(true);
+    }
+  };
 
   const handleChangePin = async () => {
     setError('');
     setMessage('');
+
     const currentHash = await hashPin(currentPin);
-    const storedHash = localStorage.getItem('grotta_pin_hash');
-    if (currentHash !== storedHash) { setError('Rangt núverandi PIN'); return; }
-    if (newPin.length !== 4 || !/^\d{4}$/.test(newPin)) { setError('PIN verður að vera 4 tölustafir'); return; }
-    if (newPin !== confirmPin) { setError('Nýtt PIN passar ekki'); return; }
+    const { data } = await supabase
+      .from('app_settings')
+      .select('value')
+      .eq('key', 'pin_hash')
+      .single();
+
+    if (!data || data.value !== currentHash) {
+      setError('Rangt núverandi PIN');
+      return;
+    }
+
+    if (newPin.length !== 4 || !/^\d{4}$/.test(newPin)) {
+      setError('PIN verður að vera 4 tölustafir');
+      return;
+    }
+
+    if (newPin !== confirmPin) {
+      setError('Nýtt PIN passar ekki');
+      return;
+    }
+
     const newHash = await hashPin(newPin);
-    localStorage.setItem('grotta_pin_hash', newHash);
-    setCurrentPin(''); setNewPin(''); setConfirmPin('');
+    await supabase
+      .from('app_settings')
+      .upsert({ key: 'pin_hash', value: newHash });
+
+    setCurrentPin('');
+    setNewPin('');
+    setConfirmPin('');
     setMessage('PIN breytt!');
   };
 
@@ -78,6 +137,43 @@ export default function SettingsPage() {
       <button className="btn-features" onClick={() => setShowFeatures(true)}>
         💡 Fítusar — Hvað get ég gert?
       </button>
+
+      {!isInstalled && (
+        <button className="btn-install" onClick={handleInstall}>
+          📲 Setja app á heimaskjá
+        </button>
+      )}
+
+      {isInstalled && (
+        <div className="installed-badge">✅ App er uppsett</div>
+      )}
+
+      {showIosGuide && (
+        <div className="modal-overlay" onClick={() => setShowIosGuide(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2 className="modal-title">📲 Setja á heimaskjá</h2>
+              <button className="modal-close" onClick={() => setShowIosGuide(false)}>✕</button>
+            </div>
+            <div className="modal-body">
+              <div className="ios-steps">
+                <div className="ios-step">
+                  <span className="ios-step-num">1</span>
+                  <p>Ýttu á <strong>Deila</strong> takkann (⬆️) neðst í Safari</p>
+                </div>
+                <div className="ios-step">
+                  <span className="ios-step-num">2</span>
+                  <p>Skrollaðu niður og veldu <strong>"Setja á heimaskjá"</strong></p>
+                </div>
+                <div className="ios-step">
+                  <span className="ios-step-num">3</span>
+                  <p>Ýttu á <strong>"Bæta við"</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Features modal */}
       {showFeatures && (
