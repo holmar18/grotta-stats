@@ -17,7 +17,7 @@ export default function Layout() {
       <header className="topbar">
         <div className="topbar-left">
           <span className="topbar-logo">
-            <img src="/grotta-stats/grotta-logo.webp" alt="Grótta" style={{ width: 28, height: 28 }} />
+            <img src="/assets/grotta-logo.webp" alt="Grótta" style={{ width: 28, height: 28 }} />
           </span>
           <span className="topbar-title">Grótta Stats</span>
         </div>
