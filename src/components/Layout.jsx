@@ -16,7 +16,9 @@ export default function Layout() {
     <div className="layout">
       <header className="topbar">
         <div className="topbar-left">
-          <span className="topbar-logo">🤾</span>
+          <span className="topbar-logo">
+            <img src="/grotta-stats/grotta-logo.webp" alt="Grótta" style={{ width: 28, height: 28 }} />
+          </span>
           <span className="topbar-title">Grótta Stats</span>
         </div>
         <button className="topbar-settings" onClick={() => navigate('/settings')}>
