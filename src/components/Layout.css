@@ -1,0 +1,126 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* Top Bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--bg);
+  /* Neumorphic shadow for floating header */
+  box-shadow: 0 4px 20px -2px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-logo {
+  font-size: 24px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.topbar-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text);
+  text-shadow: 1px 1px 2px var(--shadow-dark), -1px -1px 2px var(--shadow-light);
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: 20px;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 16px));
+  overflow-y: auto;
+}
+
+/* Bottom Nav */
+.bottomnav {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: var(--bg);
+  padding: 10px 10px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  z-index: 100;
+  
+  /* Floating Dock Look */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--neu-shadow);
+  border: 1px solid var(--border);
+}
+
+.bottomnav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: var(--radius);
+}
+
+.bottomnav-item.active {
+  color: var(--accent);
+  background: var(--bg);
+  box-shadow: var(--neu-pressed);
+}
+
+.bottomnav-icon {
+  font-size: 22px;
+  line-height: 1;
+  filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
+  transition: transform 0.2s ease;
+}
+
+.bottomnav-item.active .bottomnav-icon {
+  transform: translateY(1px);
+  filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+.bottomnav-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.topbar-settings {
+  background: var(--bg);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+  
+  /* Neumorphic Button */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.topbar-settings:active {
+  box-shadow: var(--neu-pressed);
+  transform: translateY(1px);
+  color: var(--text);
+}
+

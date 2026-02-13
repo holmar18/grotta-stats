@@ -1,0 +1,240 @@
+.stats-meta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.meta-badge {
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  
+  /* Neumorphic Badge */
+  box-shadow: var(--neu-shadow-sm);
+  border: 1px solid var(--border);
+}
+
+/* View toggle */
+.view-toggle {
+  display: flex;
+  gap: 12px;
+  background: transparent;
+  padding: 4px 0;
+  margin-bottom: 20px;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+  
+  /* Standard raised button */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.view-btn:active {
+  box-shadow: var(--neu-pressed);
+  transform: translateY(1px);
+}
+
+.view-btn.active {
+  background: var(--bg);
+  color: var(--accent);
+  box-shadow: var(--neu-pressed);
+}
+
+/* Stat picker */
+.stat-picker {
+  width: 100%;
+  background: var(--bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 24px;
+  outline: none;
+  cursor: pointer;
+  
+  /* Neumorphic Input/Select */
+  box-shadow: var(--neu-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.stat-picker:focus {
+  box-shadow: var(--neu-pressed);
+  color: var(--accent);
+}
+
+.stat-picker option {
+  background: var(--surface3);
+  color: var(--text);
+}
+.stat-picker optgroup {
+  color: var(--text-dim);
+  background: var(--bg);
+}
+
+/* Leaderboard */
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.leader-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  
+  /* Neumorphic Card */
+  box-shadow: var(--neu-shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease;
+}
+
+.leader-row:hover {
+  transform: translateY(-2px);
+}
+
+.leader-rank {
+  font-size: 18px;
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-shadow: 1px 1px 1px var(--shadow-dark);
+}
+
+.leader-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.leader-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.leader-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+
+.leader-nums {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.leader-total {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.leader-avg {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.leader-bar-bg {
+  height: 8px;
+  background: var(--bg);
+  border-radius: 4px;
+  overflow: hidden;
+  /* Inset track */
+  box-shadow: var(--neu-pressed);
+}
+
+.leader-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Team totals */
+.totals-section {
+  margin-bottom: 24px;
+}
+
+.totals-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.totals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 16px;
+}
+
+.total-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  
+  /* Neumorphic Card */
+  box-shadow: var(--neu-shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.total-value {
+  font-family: var(--mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.total-avg {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.total-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  color: var(--text-muted);
+  line-height: 1.2;
+  margin-top: 4px;
+}

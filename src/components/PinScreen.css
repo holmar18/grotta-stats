@@ -1,0 +1,177 @@
+.pin-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 24px;
+  background: var(--bg);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pin-logo {
+  font-size: 56px;
+  margin-bottom: 12px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.pin-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Fallback */
+  text-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light);
+}
+
+.pin-subtitle {
+  color: var(--text-dim);
+  font-size: 15px;
+  margin-bottom: 32px;
+  min-height: 20px;
+  font-weight: 500;
+}
+
+/* Dots */
+.pin-dots {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  /* Shallow inset container for dots */
+  background: var(--bg);
+  box-shadow: var(--neu-pressed);
+}
+
+.pin-dots.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  /* Unfilled state is just inset */
+  box-shadow: var(--neu-pressed);
+  border: 1px solid transparent; /* Maintain size */
+  transition: all 0.2s ease;
+}
+
+.pin-dot.filled {
+  background: var(--accent);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2), 0 0 10px var(--accent-glow);
+  transform: scale(1.1);
+}
+
+.pin-dot.error {
+  background: var(--red);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2), 0 0 10px var(--red-glow);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+/* Error text */
+.pin-error {
+  color: var(--red);
+  font-size: 14px;
+  min-height: 24px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  text-shadow: 0 0 10px var(--red-glow);
+}
+
+/* Numpad */
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 20px;
+}
+
+.pin-key {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  
+  /* Neumorphic Button Base */
+  background: var(--bg);
+  box-shadow: var(--neu-shadow);
+  color: var(--text);
+  
+  font-size: 26px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+.pin-key:active:not(.empty) {
+  /* Pressed State */
+  box-shadow: var(--neu-pressed);
+  transform: scale(0.95);
+  color: var(--accent);
+}
+
+.pin-key.empty {
+  box-shadow: none;
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+.pin-key.backspace {
+  font-size: 22px;
+  color: var(--text-dim);
+  /* Smaller shadow for utility keys */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.pin-key.backspace:active {
+  box-shadow: var(--neu-pressed);
+  color: var(--red);
+}
+
+/* Reset toggle */
+.pin-setup-toggle {
+  margin-top: 40px;
+  color: var(--text-dim);
+  background: var(--bg);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--neu-shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.pin-setup-toggle:hover {
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: var(--neu-shadow);
+}
+
+.pin-setup-toggle:active {
+  box-shadow: var(--neu-pressed);
+  transform: translateY(0);
+}

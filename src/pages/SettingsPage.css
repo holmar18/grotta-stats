@@ -1,0 +1,191 @@
+.settings-section {
+  margin-bottom: 28px;
+}
+
+.settings-form {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  /* Neumorphic Card */
+  box-shadow: var(--neu-shadow);
+  border: 1px solid var(--border);
+}
+
+.settings-error {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 600;
+  text-shadow: 0 0 10px var(--red-glow);
+}
+.settings-success {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.about-box {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  color: var(--text-dim);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  /* Neumorphic Card */
+  box-shadow: var(--neu-shadow);
+  border: 1px solid var(--border);
+}
+
+/* Features button */
+.btn-features {
+  width: 100%;
+  background: var(--bg);
+  border: none;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 24px;
+  transition: all 0.2s ease;
+  
+  /* Neumorphic Button */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.btn-features:active {
+  box-shadow: var(--neu-pressed);
+  color: var(--accent);
+  transform: translateY(1px);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 25, 28, 0.85); /* Darken bg */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  /* Floating Modal Shadow */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), var(--neu-shadow);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+  box-shadow: 0 4px 12px -4px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-shadow: 1px 1px 2px var(--shadow-dark);
+}
+
+.modal-close {
+  background: var(--bg);
+  border: none;
+  color: var(--text-dim);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  /* Neumorphic Button */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.modal-close:hover {
+  color: var(--red);
+  transform: translateY(-1px);
+}
+
+.modal-close:active {
+  box-shadow: var(--neu-pressed);
+  transform: translateY(1px);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Feature items */
+.feature-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--bg);
+  padding: 16px;
+  border-radius: var(--radius);
+  /* Inset item */
+  box-shadow: var(--neu-pressed);
+}
+
+.feature-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background: var(--bg);
+  border-radius: 50%;
+  /* Pop the icon out */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.feature-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}

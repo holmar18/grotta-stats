@@ -1,0 +1,154 @@
+.games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  /* Neumorphic Card */
+  box-shadow: var(--neu-shadow);
+  border: 1px solid var(--border);
+}
+
+.game-card.expanded {
+  box-shadow: var(--neu-pressed);
+  border-color: transparent;
+}
+
+.game-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.game-card-header:active {
+  background: transparent;
+}
+
+.game-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.game-card-opponent {
+  font-size: 17px;
+  font-weight: 600;
+  text-shadow: 1px 1px 1px var(--shadow-dark);
+}
+
+.game-card-date {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.game-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-icon-sm {
+  background: var(--bg);
+  border: none;
+  font-size: 14px;
+  padding: 8px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  color: var(--text-dim);
+  
+  /* Neumorphic Button */
+  box-shadow: var(--neu-shadow-sm);
+}
+
+.btn-icon-sm:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.btn-icon-sm:active {
+  box-shadow: var(--neu-pressed);
+  transform: translateY(1px);
+  color: var(--text);
+}
+
+.game-card-chevron {
+  font-size: 12px;
+  color: var(--text-dim);
+  transition: transform 0.3s ease;
+}
+
+.game-card.expanded .game-card-chevron {
+  transform: rotate(180deg);
+}
+
+/* Expanded body */
+.game-card-body {
+  padding: 0 20px 20px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.loading-text {
+  color: var(--text-dim);
+  font-size: 13px;
+  text-align: center;
+  padding: 16px;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  /* Inset look for data sections */
+  box-shadow: var(--neu-pressed);
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Reuse stat-table styles from HomePage but override vals */
+.td-val {
+  text-align: center;
+  padding: 8px 4px;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.val-active {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.val-zero {
+  color: var(--text-muted);
+  opacity: 0.5;
+}

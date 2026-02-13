@@ -1,0 +1,143 @@
+.compare-pickers {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.compare-select {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  cursor: pointer;
+}
+
+.compare-select:focus {
+  border-color: var(--accent);
+}
+.compare-select option {
+  background: var(--surface);
+}
+
+.compare-vs {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.btn-compare {
+  width: 100%;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.btn-compare:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.btn-compare:active:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+/* Results */
+.compare-results {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.compare-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+
+.compare-player {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.compare-player.right {
+  text-align: right;
+}
+
+.compare-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.compare-games {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* Stat rows */
+.compare-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-row:last-child {
+  border-bottom: none;
+}
+
+.compare-val {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.compare-val.left {
+  align-items: flex-start;
+}
+.compare-val.right {
+  align-items: flex-end;
+}
+
+.compare-val.winning .cv-total {
+  color: var(--accent);
+}
+
+.cv-total {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.cv-avg {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.compare-label {
+  flex: 1.2;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-dim);
+  padding: 0 4px;
+}
