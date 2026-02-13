@@ -125,7 +125,7 @@ export default function PinScreen({ onUnlock }) {
   return (
     <div className="pin-screen">
       <div className="pin-logo">
-        <img src="/assets/grotta-logo.webp" alt="Grótta" style={{ width: 84, height: 84 }} />
+        <img src="/assets/grotta-logo.png" alt="Grótta" style={{ width: 124, height: 124 }} />
       </div>
       <h1 className="pin-title">Grótta Stats</h1>
       <p className="pin-subtitle">{subtitle}</p>
