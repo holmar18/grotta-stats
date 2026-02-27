@@ -11,6 +11,7 @@ import SettingsPage from './pages/SettingsPage';
 
 export default function App() {
   const [unlocked, setUnlocked] = useState(false);
+  const [gameActive, setGameActive] = useState(false);
 
   if (!unlocked) {
     return <PinScreen onUnlock={() => setUnlocked(true)} />;
@@ -19,8 +20,8 @@ export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<HomePage />} />
+        <Route element={<Layout gameActive={gameActive} />}>
+          <Route index element={<HomePage onGameActiveChange={setGameActive} />} />
           <Route path="/games" element={<GamesPage />} />
           <Route path="/players" element={<PlayersPage />} />
           <Route path="/stats" element={<StatsPage />} />

@@ -14,7 +14,7 @@
   padding: 14px 20px;
   background: var(--bg);
   /* Neumorphic shadow for floating header */
-  box-shadow: 0 4px 20px -2px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -29,7 +29,7 @@
 .topbar-logo {
   font-size: 24px;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .topbar-title {
@@ -37,7 +37,9 @@
   font-weight: 700;
   letter-spacing: -0.3px;
   color: var(--text);
-  text-shadow: 1px 1px 2px var(--shadow-dark), -1px -1px 2px var(--shadow-light);
+  text-shadow:
+    1px 1px 2px var(--shadow-dark),
+    -1px -1px 2px var(--shadow-light);
 }
 
 /* Page Content */
@@ -59,7 +61,7 @@
   padding: 10px 10px;
   padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   z-index: 100;
-  
+
   /* Floating Dock Look */
   border-radius: var(--radius-lg);
   box-shadow: var(--neu-shadow);
@@ -89,7 +91,7 @@
 .bottomnav-icon {
   font-size: 22px;
   line-height: 1;
-  filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
   transition: transform 0.2s ease;
 }
 
@@ -113,7 +115,7 @@
   border-radius: 50%;
   color: var(--text-dim);
   transition: all 0.2s ease;
-  
+
   /* Neumorphic Button */
   box-shadow: var(--neu-shadow-sm);
 }
@@ -124,3 +126,28 @@
   color: var(--text);
 }
 
+.live-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--red);
+  background: var(--red-glow);
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.bottomnav-item.disabled {
+  opacity: 0.3;
+  pointer-events: auto;
+}

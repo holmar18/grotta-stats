@@ -4,7 +4,7 @@ import { FIELD_PLAYER_STATS, GOALKEEPER_STATS } from '../lib/stats';
 import './PageStyles.css';
 import './HomePage.css';
 
-export default function HomePage() {
+export default function HomePage({ onGameActiveChange }) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gameActive, setGameActive] = useState(false);
@@ -12,7 +12,23 @@ export default function HomePage() {
   const [gameDate, setGameDate] = useState(new Date().toISOString().slice(0, 10));
   const [stats, setStats] = useState({});
   const [saving, setSaving] = useState(false);
-  const [mode, setMode] = useState('plus'); // 'plus' or 'minus'
+  const [mode, setMode] = useState('plus');
+
+  // Sync game state to parent
+  useEffect(() => {
+    onGameActiveChange(gameActive);
+  }, [gameActive, onGameActiveChange]);
+
+  // Warn on browser close/refresh during active game
+  useEffect(() => {
+    if (!gameActive) return;
+    const handler = (e) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [gameActive]);
 
   useEffect(() => {
     (async () => {
