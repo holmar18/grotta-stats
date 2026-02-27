@@ -1,5 +1,6 @@
 export const FIELD_PLAYER_STATS = [
-  { key: 'skot_mork', label: 'Skot / mörk' },
+  { key: 'skot', label: 'Skot' },
+  { key: 'mork', label: 'Mörk' },
   { key: 'stodsending', label: 'Stoðsending' },
   { key: 'tapadur_bolti', label: 'Tapaður bolti' },
   { key: 'fiskad_viti', label: 'Fiskað víti' },
