@@ -36,7 +36,7 @@ export default function Layout({ gameActive }) {
       <header className="topbar">
         <div className="topbar-left">
           <span className="topbar-logo">
-            <img src="/grotta-stats/grotta-logo.webp" alt="Grótta" style={{ width: 28, height: 28 }} />
+            <img src="/grotta-stats/assets/grotta-logo.png" alt="Grótta" style={{ width: 28, height: 28 }} />
           </span>
           <span className="topbar-title">Grótta Stats</span>
           {gameActive && <span className="live-badge">● LIVE</span>}
