@@ -58,6 +58,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  margin-bottom: 2rem;
 }
 
 .compare-header {
@@ -140,4 +141,16 @@
   letter-spacing: 0.3px;
   color: var(--text-dim);
   padding: 0 4px;
+}
+
+.compare-divider {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  padding: 10px 14px 6px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
 }

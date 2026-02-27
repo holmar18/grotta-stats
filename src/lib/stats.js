@@ -20,6 +20,39 @@ export const GOALKEEPER_STATS = [
   { key: 'sendingar_minus', label: 'Sendingar --' },
 ];
 
+/**
+ * Calculate efficiency metrics from raw stats.
+ * Returns an object with calculated percentages/ratios.
+ */
+export function calcEfficiency(totals, games) {
+  const skot = totals.skot || 0;
+  const mork = totals.mork || 0;
+  const stod = totals.stodsending || 0;
+  const tap = totals.tapadur_bolti || 0;
+  const viti = totals.fiskad_viti || 0;
+  const stol = totals.stolinn_bolti || 0;
+  const rudMinus = totals.rudningur_minus || 0;
+
+  const shotPct = skot > 0 ? ((mork / skot) * 100).toFixed(1) : '-';
+  const assistTurnover = tap > 0 ? (stod / tap).toFixed(2) : stod > 0 ? '∞' : '-';
+  const efficiencyRating = (mork + stod + viti + stol) - (tap + rudMinus);
+  const efficiencyPerGame = games > 0 ? (efficiencyRating / games).toFixed(1) : '0.0';
+
+  return {
+    shotPct,
+    assistTurnover,
+    efficiencyRating,
+    efficiencyPerGame,
+  };
+}
+
+export const EFFICIENCY_STATS = [
+  { key: 'shotPct', label: 'Skotnýting %' },
+  { key: 'assistTurnover', label: 'Stoðs. / Tap. boltar' },
+  { key: 'efficiencyRating', label: 'Vinnsluhlutfall' },
+  { key: 'efficiencyPerGame', label: 'Vinnsla / leik' },
+];
+
 export function getStatsForType(isGoalkeeper) {
   return isGoalkeeper ? GOALKEEPER_STATS : FIELD_PLAYER_STATS;
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { FIELD_PLAYER_STATS, GOALKEEPER_STATS } from '../lib/stats';
+import { FIELD_PLAYER_STATS, GOALKEEPER_STATS, calcEfficiency, EFFICIENCY_STATS } from '../lib/stats';
 import { exportPlayerPdf } from '../lib/exportPdf';
 import './PageStyles.css';
 import './PlayersPage.css';
@@ -108,7 +108,9 @@ export default function PlayersPage() {
       averages[s.key] = gameCount > 0 ? (totals[s.key] / gameCount).toFixed(1) : '0.0';
     });
 
-    setPlayerStats({ rows, gameCount, totals, averages, statDefs });
+    const efficiency = player.is_goalkeeper ? null : calcEfficiency(totals, gameCount);
+
+    setPlayerStats({ rows, gameCount, totals, averages, statDefs, efficiency });
     setLoadingStats(false);
   };
 
@@ -235,6 +237,50 @@ export default function PlayersPage() {
                               </div>
                             ))}
                           </div>
+
+                          {playerStats.efficiency && (
+                            <div className="efficiency-section">
+                              <h4 className="profile-games-title">Skilvirknistölur</h4>
+                              <div className="efficiency-grid">
+                                <div className="eff-card">
+                                  <div className="eff-header">
+                                    <span className={`eff-value ${parseFloat(playerStats.efficiency.shotPct) >= 50 ? 'good' : parseFloat(playerStats.efficiency.shotPct) < 40 ? 'bad' : ''}`}>
+                                      {playerStats.efficiency.shotPct}{playerStats.efficiency.shotPct !== '-' ? '%' : ''}
+                                    </span>
+                                    <button className="eff-info" onClick={() => alert('Skotnýting = Mörk / Skot.\n\nSýnir hversu oft leikmaður skorar þegar hann skýtur. 50%+ er gott, undir 40% er áhyggjuefni.')}>?</button>
+                                  </div>
+                                  <span className="eff-label">Skotnýting</span>
+                                </div>
+                                <div className="eff-card">
+                                  <div className="eff-header">
+                                    <span className={`eff-value ${parseFloat(playerStats.efficiency.assistTurnover) >= 1.0 ? 'good' : playerStats.efficiency.assistTurnover !== '-' && playerStats.efficiency.assistTurnover !== '∞' && parseFloat(playerStats.efficiency.assistTurnover) < 1.0 ? 'bad' : ''}`}>
+                                      {playerStats.efficiency.assistTurnover}
+                                    </span>
+                                    <button className="eff-info" onClick={() => alert('Stoðsendingar / Tapaðir boltar.\n\nSýnir áhættustýringu. Ef undir 1.0 er leikmaðurinn að tapa boltanum oftar en hann skapar tækifæri.')}>?</button>
+                                  </div>
+                                  <span className="eff-label">Stoðs. / Tap.</span>
+                                </div>
+                                <div className="eff-card">
+                                  <div className="eff-header">
+                                    <span className={`eff-value ${playerStats.efficiency.efficiencyRating > 0 ? 'good' : playerStats.efficiency.efficiencyRating < 0 ? 'bad' : ''}`}>
+                                      {playerStats.efficiency.efficiencyRating}
+                                    </span>
+                                    <button className="eff-info" onClick={() => alert('Vinnsluhlutfall = (Mörk + Stoðsendingar + Fiskað víti + Stolnir boltar) − (Tapaðir boltar + Ruðningur −).\n\nEin tala sem sýnir heildarframlag í sókn. Jákvætt = jákvæð áhrif, neikvætt = vandamál.')}>?</button>
+                                  </div>
+                                  <span className="eff-label">Vinnsluhlutfall</span>
+                                </div>
+                                <div className="eff-card">
+                                  <div className="eff-header">
+                                    <span className={`eff-value ${parseFloat(playerStats.efficiency.efficiencyPerGame) > 0 ? 'good' : parseFloat(playerStats.efficiency.efficiencyPerGame) < 0 ? 'bad' : ''}`}>
+                                      {playerStats.efficiency.efficiencyPerGame}
+                                    </span>
+                                    <button className="eff-info" onClick={() => alert('Vinnsluhlutfall deilt með fjölda leikja.\n\nSýnir meðalframlag á leik. Gott til að bera saman leikmenn sem hafa spilað misjafnlega marga leiki.')}>?</button>
+                                  </div>
+                                  <span className="eff-label">Vinnsla / leik</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
 
                           {playerStats.rows.length > 0 && (
                             <div className="profile-games">

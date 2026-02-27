@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { FIELD_PLAYER_STATS, GOALKEEPER_STATS } from '../lib/stats';
+import { FIELD_PLAYER_STATS, GOALKEEPER_STATS, calcEfficiency, EFFICIENCY_STATS } from '../lib/stats';
 import './PageStyles.css';
 import './ComparePage.css';
 
@@ -49,7 +49,9 @@ export default function ComparePage() {
       averages[s.key] = games > 0 ? (totals[s.key] / games).toFixed(1) : '0.0';
     });
 
-    return { player, games, totals, averages, statDefs };
+    const efficiency = player.is_goalkeeper ? null : calcEfficiency(totals, games);
+
+    return { player, games, totals, averages, statDefs, efficiency };
   };
 
   const compare = async () => {
@@ -167,6 +169,30 @@ export default function ComparePage() {
               </div>
             );
           })}
+          {statsA.efficiency && statsB.efficiency && (
+            <>
+              <div className="compare-divider">Skilvirknistölur</div>
+              {EFFICIENCY_STATS.map((s) => {
+                const rawA = statsA.efficiency[s.key];
+                const rawB = statsB.efficiency[s.key];
+                const numA = parseFloat(rawA) || 0;
+                const numB = parseFloat(rawB) || 0;
+                const winner = numA > numB ? 'a' : numB > numA ? 'b' : 'tie';
+
+                return (
+                  <div key={s.key} className="compare-row">
+                    <div className={`compare-val left ${winner === 'a' ? 'winning' : ''}`}>
+                      <span className="cv-total">{rawA}{s.key === 'shotPct' && rawA !== '-' ? '%' : ''}</span>
+                    </div>
+                    <div className="compare-label">{s.label}</div>
+                    <div className={`compare-val right ${winner === 'b' ? 'winning' : ''}`}>
+                      <span className="cv-total">{rawB}{s.key === 'shotPct' && rawB !== '-' ? '%' : ''}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
         </div>
       )}
     </div>

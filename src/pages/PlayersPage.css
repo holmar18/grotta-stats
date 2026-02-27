@@ -12,7 +12,7 @@
 .search-input {
   width: 100%;
   margin-bottom: 20px;
-  
+
   /* Neumorphic Input */
   background: var(--bg);
   border: none;
@@ -25,7 +25,10 @@
 }
 
 .search-input:focus {
-  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light), 0 0 0 1px var(--accent);
+  box-shadow:
+    inset 2px 2px 5px var(--shadow-dark),
+    inset -2px -2px 5px var(--shadow-light),
+    0 0 0 1px var(--accent);
 }
 
 .btn-add {
@@ -38,7 +41,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   /* Neumorphic Button */
   box-shadow: var(--neu-shadow-sm);
 }
@@ -58,7 +61,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  
+
   /* Neumorphic Card */
   box-shadow: var(--neu-shadow);
   border: 1px solid var(--border);
@@ -72,14 +75,17 @@
   font-size: 15px;
   outline: none;
   color: var(--text);
-  
+
   /* Inset/Pressed look */
   box-shadow: var(--neu-pressed);
   transition: all 0.2s ease;
 }
 
 .form-input:focus {
-  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light), 0 0 0 1px var(--accent);
+  box-shadow:
+    inset 2px 2px 5px var(--shadow-dark),
+    inset -2px -2px 5px var(--shadow-light),
+    0 0 0 1px var(--accent);
 }
 
 .form-toggle {
@@ -114,7 +120,7 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   /* Neumorphic Button */
   box-shadow: var(--neu-shadow-sm);
 }
@@ -133,7 +139,7 @@
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   /* Neumorphic Button */
   box-shadow: var(--neu-shadow-sm);
 }
@@ -163,7 +169,7 @@
   background: var(--bg);
   border-radius: var(--radius);
   overflow: hidden;
-  
+
   /* Neumorphic Card */
   box-shadow: var(--neu-shadow);
   border: 1px solid var(--border);
@@ -185,7 +191,7 @@
 
 .player-row:active {
   background: transparent;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .player-row.selected {
   background: var(--bg);
@@ -214,7 +220,7 @@
   border-radius: 50%;
   color: var(--text-dim);
   transition: all 0.2s ease;
-  
+
   /* Neumorphic Button */
   box-shadow: var(--neu-shadow-sm);
 }
@@ -241,7 +247,7 @@
   padding: 20px;
   border-bottom: 1px solid var(--border);
   background: var(--bg);
-  box-shadow: inset 0 -4px 10px -4px rgba(0,0,0,0.2);
+  box-shadow: inset 0 -4px 10px -4px rgba(0, 0, 0, 0.2);
 }
 
 .profile-loading {
@@ -268,7 +274,7 @@
   align-items: center;
   text-align: center;
   gap: 4px;
-  
+
   /* Neumorphic Tile */
   box-shadow: var(--neu-shadow-sm);
   border: 1px solid var(--border);
@@ -349,7 +355,7 @@
   color: var(--text-dim);
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   /* Neumorphic Button */
   box-shadow: var(--neu-shadow-sm);
 }
@@ -358,4 +364,78 @@
   box-shadow: var(--neu-pressed);
   transform: translateY(1px);
   color: var(--text);
+}
+
+.efficiency-section {
+  margin-bottom: 16px;
+}
+
+.efficiency-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.eff-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.eff-value {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.eff-value.good {
+  color: var(--accent);
+}
+.eff-value.bad {
+  color: var(--red);
+}
+
+.eff-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-dim);
+}
+
+.eff-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.eff-info {
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  transition: all 0.15s;
+}
+
+.eff-info:active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
 }
